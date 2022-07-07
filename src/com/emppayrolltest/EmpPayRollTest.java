@@ -45,4 +45,17 @@ public class EmpPayRollTest {
             System.out.println(e.getMessage());
         }
     }
+    @Test
+    public void watchService() {
+        String dir = "F:\\Study\\BridgeLabz Java\\EmployeePayroll";
+        try {
+            Files.list(Paths.get(dir))
+                    .filter(Files::isRegularFile)
+                    .forEach(n-> System.out.println(n));
+        }
+        catch (IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
 }

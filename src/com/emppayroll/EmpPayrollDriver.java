@@ -24,6 +24,7 @@ public class EmpPayrollDriver {
         fileWriter.close();
         System.out.println("Data inserted");
     }
+    //Ability to read the file to print the payroll of employees
     public static void readFile()throws IOException{
         FileReader fileReader = new FileReader(file);
         Object obj = gson.fromJson(fileReader,Object.class);

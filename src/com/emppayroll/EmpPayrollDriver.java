@@ -2,10 +2,8 @@ package com.emppayroll;
 
 import com.google.gson.Gson;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -14,12 +12,15 @@ public class EmpPayrollDriver {
     static Gson gson = new Gson();
     static File file = new File("EmployeeDetails.json");
     static HashMap<Byte,Employee> employeeHashMap = new HashMap<>();
+    static int count = 0;
     public static void writeInFile() throws IOException
     {
         String str = gson.toJson(employeeHashMap);
-        file.createNewFile();
         FileWriter fileWriter = new FileWriter(file);
-        fileWriter.write(str);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        bufferedWriter.write(str);
+        count++;
+        bufferedWriter.close();
         fileWriter.close();
         System.out.println("Data inserted");
     }
@@ -54,18 +55,31 @@ public class EmpPayrollDriver {
             System.out.println(e.getMessage());
         }
     }
+    public static long countEntries(){
+        long count = 0;
+        try {
+            count = Files.lines(file.toPath()).count();
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+        return count;
+    }
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Payroll system.");
         byte option;
         while(true) {
-            System.out.println("\n Enter 1 to add details \n Enter 2 to display details \n Enter 3 to EXIT");
+            System.out.println("\n Enter 1 to add details \n Enter 2 to display details \n Enter 3 to get the number of employees \n Enter 4 to EXIT");
             option = sc.nextByte();
             switch (option) {
                 case 1: EmpPayrollDriver.addEmployeeDetails();
                     break;
                 case 2 : EmpPayrollDriver.readEmployeeDetails();
                     break;
-                case 3 :
+                case 3:
+                    System.out.println("Number of employees are "+count);
+                    break;
+                case 4 :
                     System.out.println("Thank You!");
                     return;
             }

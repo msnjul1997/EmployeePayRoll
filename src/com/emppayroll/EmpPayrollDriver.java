@@ -55,6 +55,7 @@ public class EmpPayrollDriver {
             System.out.println(e.getMessage());
         }
     }
+    //Counting the number of entries
     public static long countEntries(){
         long count = 0;
         try {

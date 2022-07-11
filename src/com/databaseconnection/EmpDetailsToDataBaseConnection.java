@@ -67,10 +67,9 @@ public class EmpDetailsToDataBaseConnection implements IEmpDetails{
         String addQuery = "insert into employee_details(name,emp_gender,emp_phone,emp_address) values(?,?,?,?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(addQuery);
-            /*preparedStatement.setString(1, employee.getName());
-            preparedStatement.setString(2,employee.getEmpgender());
-            preparedStatement.setLong(3,employee.getEmp_phone());
-            preparedStatement.setString(4,employee.getEmp_address());*/
+            preparedStatement.setString(1, employee.getName());
+            preparedStatement.setInt(2, employee.getId());
+            preparedStatement.setLong(3,employee.getSalary());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

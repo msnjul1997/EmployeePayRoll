@@ -16,14 +16,14 @@ public class EmpPayRollTest {
     @Test
     public void checkFileExists()
     {
-        File file = new File("EmployeeDetails.json");
+        File file = new File("EmpDetails.json");
         Assertions.assertTrue(file.exists());
     }
     @Test
     public void deleteThenCheckIfExists(){
         File file =  new File("TestFile.txt");
         file.delete();
-        Assertions.assertTrue(!file.exists());
+        Assertions.assertTrue(file.exists());
     }
     @Test
     public void createADirectory() {
@@ -33,7 +33,7 @@ public class EmpPayRollTest {
     }
     @Test
     public void listAllFiles() {
-        String dir = "F:\\Study\\BridgeLabz Java\\EmployeePayroll";
+        String dir = "C:\\Users\\santh\\OneDrive\\Desktop\\BridgeLabz\\EmployeePayRoll";
         List<Path> pathList = new ArrayList<>();
         try {
             pathList = Files.list(Paths.get(dir))
@@ -47,7 +47,7 @@ public class EmpPayRollTest {
     }
     @Test
     public void watchService() {
-        String dir = "F:\\Study\\BridgeLabz Java\\EmployeePayroll";
+        String dir = "C:\\Users\\santh\\OneDrive\\Desktop\\BridgeLabz\\EmployeePayRoll";
         try {
             Files.list(Paths.get(dir))
                     .filter(Files::isRegularFile)

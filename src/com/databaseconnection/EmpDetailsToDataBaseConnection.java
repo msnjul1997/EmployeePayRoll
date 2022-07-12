@@ -6,12 +6,12 @@ import com.emppayroll.Employee;
 
 import java.sql.*;
 
-public class EmpDetailsToDataBaseConnection implements IEmpDetails{
+public class EmpDetailsToDataBaseConnection implements IEmpDetails {
     Statement statement;
-    private DataBaseConnection dbConection;
-    //DBConection dbConection = new DBConection();
-    Connection connection = dbConection.getConnection();
+  DataBaseConnection dataBaseConnection=new DataBaseConnection();
+    Connection connection = dataBaseConnection.getConnection();
     ResultSet resultSet;
+    //Ability to retrieve data
     @Override
     public void getEmployeeDetails(int id) {
         try {
@@ -62,21 +62,23 @@ public class EmpDetailsToDataBaseConnection implements IEmpDetails{
 
         }
     }
+    //Added the employee personal details.
     @Override
     public void addEmployeePersonalDetails(Employee employee) {
         String addQuery = "insert into employee_details(name,emp_gender,emp_phone,emp_address) values(?,?,?,?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(addQuery);
             preparedStatement.setString(1, employee.getName());
-            preparedStatement.setInt(2, employee.getId());
-            preparedStatement.setLong(3,employee.getSalary());
+            preparedStatement.setString(2,employee.getEmp_gender());
+            preparedStatement.setLong(3,employee.getEmp_phone());
+            preparedStatement.setString(4,employee.getEmp_address());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         System.out.println("Employee details added Successfully!");
     }
-
+    //Added the employee pay details.
     @Override
     public void addEmployeePayDetails(EmpPayDetails employeePayDetails) {
         String addQuery = "insert into employee_pay(Basic_Pay,Deductions,Taxable_Pay,Income_Tax,Net_Pay) values(?,?,?,?,?)";
@@ -93,7 +95,7 @@ public class EmpDetailsToDataBaseConnection implements IEmpDetails{
         }
         System.out.println("Employee's pay details added Successfully!");
     }
-
+    //Added the employee department details.
     @Override
     public void addEmployeeDepartmentDetails(EmpDeptDetails employee_department_details) {
         try {
